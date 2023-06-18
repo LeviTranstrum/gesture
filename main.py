@@ -1,43 +1,41 @@
 from finger_counter import finger_counter
 from image_service import image_client
 from ert3 import ert3
-
 import yaml
 
-with open('config.yaml', 'r') as file:
-    config = yaml.safe_load(file)
+def main():
+    with open('/home/ert3/gesture/config.yaml', 'r') as file:
+        config = yaml.safe_load(file)
 
-client = image_client.Image_Client(config) 
-controller = ert3.Ert3(config)
-counter = finger_counter.FingerCounter(config)
-min_confidence = config.get('min_confidence')
+    client = image_client.Image_Client(config) 
+    controller = ert3.Ert3(config)
+    counter = finger_counter.FingerCounter(config)
+    min_confidence = config.get('min_confidence')
 
-count = None
-prev_count = None
+    count = None
 
-while(1):
-    image = client.get_image()
-    if image is None:
-        controller.alarm_on()
-        if prev_count is not None and prev_count > 0:
-            controller.set_output(prev_count, 0)
-        continue
+    while(1):
+        if controller.get_input(1):
+            image = client.get_image()
+            if image is None:
+                controller.reset_outputs()
+                controller.alarm_on()
+                continue
+                
+            count, confidence, visualization_data = counter.count_fingers(image)
+            if visualization_data is not None:
+                client.send_visualization_data(visualization_data)
         
-    count, confidence, visualization_data = counter.count_fingers(image)
-    if visualization_data is not None:
-        client.send_visualization_data(visualization_data)
-   
-    if count is None or confidence < min_confidence:
-        controller.alarm_on()
-        if prev_count is not None and prev_count > 0:
-            controller.set_output(prev_count, 0)
-        continue   
+            controller.reset_outputs()
 
-    controller.alarm_off()
-    if prev_count is not None and prev_count > 0:
-        controller.set_output(prev_count, 0)
-    
-    if count > 0:
-        controller.set_output(count, 1)
+            if count is None or confidence < min_confidence:
+                controller.alarm_on()
+                continue   
 
-    prev_count = count
+            controller.alarm_off()
+            
+            if count > 0:
+                controller.set_output(count, 1)
+
+if __name__ == "__main__":
+    main()

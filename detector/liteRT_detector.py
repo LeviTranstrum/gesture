@@ -3,7 +3,7 @@ import numpy as np
 
 class LiteRT_Detector:
     def __init__(self):
-        self.interpreter = tflite.Interpreter(model_path='detector/MediaPipeHandLandmarkDetector.tflite')
+        self.interpreter = tflite.Interpreter(model_path='/home/ert3/gesture/detector/MediaPipeHandLandmarkDetector.tflite')
         self.interpreter.allocate_tensors()
 
         self.input_details = self.interpreter.get_input_details()

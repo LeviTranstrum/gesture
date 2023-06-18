@@ -142,9 +142,9 @@ class ImageServer(SimpleHTTPRequestHandler):
 
 def run_server(port):
     server_address = ('', port)
-    httpd = HTTPServer(server_address, ImageServer)
+    server = HTTPServer(server_address, ImageServer)
     print(f"Starting server on port {port}...")
-    httpd.serve_forever()
+    server.serve_forever()
 
 if __name__ == "__main__":
     with open('config.yaml', 'r') as file:

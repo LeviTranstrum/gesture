@@ -11,18 +11,23 @@ class Image_Client:
         self.visualization_endpoint = self.config.visualization_endpoint
 
     def get_image(self):
-        response = requests.get(f"{self.URL}/{self.image_endpoint}")
+        try:
+            response = requests.get(f"{self.URL}/{self.image_endpoint}")
 
-        if response.status_code != 200:
-            print(f'got status code {response.status_code}: {response.text}')
+            if response.status_code != 200:
+                print(f'got status code {response.status_code}: {response.text}')
+                return None
+
+            # Convert the response content into a PIL image
+            image = Image.open(BytesIO(response.content))
+            if image is None:
+                print("Failed to decode image")
+            
+            return image
+    
+        except Exception as e:
+            print("Error getting image:", e)
             return None
-
-        # Convert the response content into a PIL image
-        image = Image.open(BytesIO(response.content))
-        if image is None:
-            print("Failed to decode image")
-        
-        return image
     
     def send_visualization_data(self, visualization_data):
         try:

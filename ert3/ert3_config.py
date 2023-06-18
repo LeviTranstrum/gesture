@@ -5,4 +5,5 @@ class Ert3Config:
             config = ert3_config
 
         self.base_module = config.get("base_module")
+        self.input_slot = config.get("input_slot")
         self.output_slot = config.get("output_slot")

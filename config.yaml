@@ -6,12 +6,13 @@ image_service_config:
 
 ert3_config:
   base_module: 0
+  input_slot: 2
   output_slot: 3
 
 finger_counter_config:
-  thumb_length: 1.5
+  thumb_length: 1.7
   index_length: 2.2
-  middle_length: 2.2
+  middle_length: 2.4
   ring_length: 2.2
   pinky_length: 1.9
   visualize_data: True
