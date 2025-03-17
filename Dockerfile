@@ -9,4 +9,4 @@ RUN pip install --no-cache-dir -r requirements.txt # Add relevant packages
 
 # Ensure your container can access the shared library
 # The library itself isn't copied — it's mounted at runtime.
-CMD ["python", "finger_counter.py"]
+CMD ["python", "ert3.py"]

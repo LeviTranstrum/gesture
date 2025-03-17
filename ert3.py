@@ -3,7 +3,7 @@ import yaml
 import requests
 import numpy as np
 import cv2
-# import m3io_py as m3io
+import m3io_py as m3io
 
 with open('config.yaml', 'r') as file:
     config = yaml.safe_load(file)
@@ -30,18 +30,13 @@ while(1):
 
     count = counter.count_fingers(image)
     if prev_count is not None and prev_count != count and prev_count > 0:
-        # m3io.writeM3OutRelayP(0, output_slot, prev_count, 0)
-        pass
+        m3io.writeM3OutRelayP(0, output_slot, prev_count, 0)
 
     if count is None:
-        print("failed to detect!")
-        # m3io.setM3AlmLed(1)
-        pass
+        m3io.setM3AlmLed(1)
 
     elif count > 0:
-        print(count)
-        # m3io.setM3AlmLed(0)
-        # m3io.writeM3OutRelayP(0, output_slot, count, 1)
-        pass
+        m3io.setM3AlmLed(0)
+        m3io.writeM3OutRelayP(0, output_slot, count, 1)
 
     prev_count = count

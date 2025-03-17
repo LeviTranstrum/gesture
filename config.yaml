@@ -1,8 +1,4 @@
-# Live
-# image_server: "192.168.3.99"
-
-# Local
-image_server: "192.168.0.12"
+image_server: "192.168.3.99"
 
 image_port: "8080"
 endpoint: "capture"
