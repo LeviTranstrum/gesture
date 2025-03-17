@@ -1,1 +1,1 @@
-visual gesture recognition
+visual gesture recognition on Yokogawa ert-3
