@@ -1,3 +1,17 @@
-image_server: "192.168.3.99"
+# Live
+# image_server: "192.168.3.99"
+
+# Local
+image_server: "192.168.0.12"
+
 image_port: "8080"
 endpoint: "capture"
+
+output_slot: 3
+
+finger_lengths:
+  thumb_length: 1.1
+  index_length: 1.2
+  middle_length: 1.3
+  ring_length: 1.2
+  pinky_length: 0.95
