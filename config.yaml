@@ -1,13 +1,16 @@
-image_server: "192.168.3.99"
+image_service_config:
+  server: "192.168.3.99"
+  port: "8080"
+  endpoint: "capture"
 
-image_port: "8080"
-endpoint: "capture"
+ert3_config:
+  base_module: 0
+  output_slot: 3
 
-output_slot: 3
-
-finger_lengths:
+finger_counter_config:
   thumb_length: 1.1
   index_length: 1.2
   middle_length: 1.3
   ring_length: 1.2
   pinky_length: 0.95
+  min_confidence: 0.7

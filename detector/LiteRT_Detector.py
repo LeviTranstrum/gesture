@@ -1,10 +1,10 @@
 import tflite_runtime.interpreter as tflite
 import numpy as np
-import cv2
 
 class RTLite_Detector:
-    def __init__(self):
-        self.interpreter = tflite.Interpreter(model_path='MediaPipeHandLandmarkDetector.tflite')
+    def __init__(self, min_confidence = 0.5):
+        self.min_confidence = min_confidence
+        self.interpreter = tflite.Interpreter(model_path='detector/MediaPipeHandLandmarkDetector.tflite')
         self.interpreter.allocate_tensors()
 
         self.input_details = self.interpreter.get_input_details()
@@ -18,8 +18,9 @@ class RTLite_Detector:
         self.width = self.input_details[0]['shape'][2]
 
     def detect(self, image):
-        img = cv2.resize(image, (self.width, self.height))
+        img = image.resize((self.width, self.height))
         # add N dim
+        img = img.convert('RGB')
         input_data = np.expand_dims(img, axis=0)
 
         if self.floating_model:
@@ -29,7 +30,13 @@ class RTLite_Detector:
 
         self.interpreter.invoke()
 
+        score = self.interpreter.get_tensor(self.output_details[0]['index'][0])
+        if score < self.min_confidence:
+            return None
+
         landmarks = self.interpreter.get_tensor(self.output_details[2]['index'])  # Index 309 for landmarks
+        print(landmarks)
+        
         results = np.squeeze(landmarks)  # Removes batch dimension
         results = [np.delete(results,2, axis=1).tolist()] # remove z dimension and convert to list
 

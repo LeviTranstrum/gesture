@@ -1,7 +1,10 @@
 import cv2
 from http.server import SimpleHTTPRequestHandler, HTTPServer
+import yaml
+from image_service_config import ImageServiceConfig
 
-class WebcamHandler(SimpleHTTPRequestHandler):
+# TODO: config.server and config.endpoint are not used here
+class ImageServer(SimpleHTTPRequestHandler):
     def do_GET(self):
         if self.path == '/capture':
             cap = cv2.VideoCapture(0)  # Open default webcam
@@ -25,7 +28,10 @@ class WebcamHandler(SimpleHTTPRequestHandler):
             self.wfile.write(b"Not Found")
 
 if __name__ == "__main__":
-    server_address = ('', 8080)  # Run on port 8080
-    httpd = HTTPServer(server_address, WebcamHandler)
-    print("Starting server on port 8080...")
+    with open('config.yaml', 'r') as file:
+        config = ImageServiceConfig(yaml.safe_load(file))
+    
+    server_address = ('', config.port)
+    httpd = HTTPServer(server_address, ImageServer)
+    print(f"Starting server on port {config.port}...")
     httpd.serve_forever()
