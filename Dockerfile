@@ -1,12 +1,24 @@
-FROM python:3.12-slim
+FROM jritsema/opencv-tensorflow-lite-arm32v7
 
-# Copy your application code into the container
-WORKDIR /app
-COPY . .
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    git \
+    zlib1g-dev \
+    libjpeg-dev \
+    libpng-dev \
+    libtiff-dev \
+    libfreetype6-dev \
+    liblcms2-dev \
+    libwebp-dev \
+    tcl-dev \
+    tk-dev \
+    python3-tk && \
+    rm -rf /var/lib/apt/lists/*  # Clean up to reduce image size
 
-# Install dependencies if needed
-RUN pip install --no-cache-dir -r requirements.txt # Add relevant packages
+# Clone the repository and install Python requirements
+RUN git clone https://github.com/LeviTranstrum/gesture.git && \
+    cd gesture && \
+    pip install --no-cache-dir -r requirements.txt
 
-# Ensure your container can access the shared library
-# The library itself isn't copied — it's mounted at runtime.
-CMD ["python", "ert3.py"]
+# Correct the CMD syntax
+CMD ["bash"]
