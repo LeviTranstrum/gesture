@@ -1,6 +1,6 @@
 image_service_config:
-  server: "192.168.3.99"
-  port: "8080"
+  server: "192.168.65.254"
+  port: 8080
   endpoint: "capture"
 
 ert3_config:
