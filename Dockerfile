@@ -13,6 +13,8 @@ RUN apt-get update && \
     tcl-dev \
     tk-dev \
     python3-tk && \
+    pyyaml && \
+    requests && \
     rm -rf /var/lib/apt/lists/*  # Clean up to reduce image size
 
 # Clone the repository and install Python requirements
