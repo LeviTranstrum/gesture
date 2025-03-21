@@ -1,6 +1,6 @@
 from finger_counter import finger_counter
-from ert3 import ert3
 from image_service import image_client
+from ert3 import ert3
 
 import yaml
 

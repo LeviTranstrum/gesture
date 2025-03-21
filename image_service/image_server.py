@@ -1,7 +1,7 @@
 import cv2
 from http.server import SimpleHTTPRequestHandler, HTTPServer
 import yaml
-from image_service_config import ImageServiceConfig
+from . import image_service_config
 
 # TODO: config.server and config.endpoint are not used here
 class ImageServer(SimpleHTTPRequestHandler):
@@ -29,7 +29,7 @@ class ImageServer(SimpleHTTPRequestHandler):
 
 if __name__ == "__main__":
     with open('config.yaml', 'r') as file:
-        config = ImageServiceConfig(yaml.safe_load(file))
+        config = image_service_config.ImageServiceConfig(yaml.safe_load(file))
     
     server_address = ('', config.port)
     httpd = HTTPServer(server_address, ImageServer)

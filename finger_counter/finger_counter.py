@@ -1,5 +1,5 @@
 import cv2
-from detector import LiteRT_Detector
+from detector import liteRT_detector
 from . import finger_counter_config
 
 class Point:
@@ -35,7 +35,7 @@ class Circle:
 class FingerCounter:
     def __init__(self, config):
         self.config = finger_counter_config.FingerCounterConfig(config)
-        self.detector = LiteRT_Detector(config.min_confidence)
+        self.detector = liteRT_detector.LiteRT_Detector(self.config.min_confidence)
 
     def count_fingers(self, image):
         result = self.detector.detect(image)
@@ -89,7 +89,6 @@ class FingerCounter:
         while(1):
             ret, frame = cap.read()
             count = self.count_fingers(frame, False)
-            if count is not None:
-                print(count)
+            print(count)
 
         cap.release()
