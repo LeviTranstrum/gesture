@@ -11,11 +11,8 @@ RUN apt-get update && \
     liblcms2-dev \
     libwebp-dev \
     tcl-dev \
-    tk-dev \
-    python3-tk && \
-    pyyaml && \
-    requests && \
-    rm -rf /var/lib/apt/lists/*  # Clean up to reduce image size
+    tk-dev && \
+    rm -rf /var/lib/apt/lists/*
 
 # Clone the repository and install Python requirements
 RUN git clone https://github.com/LeviTranstrum/gesture.git && \
