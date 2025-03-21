@@ -1,4 +1,3 @@
-import cv2
 from detector import liteRT_detector
 from . import finger_counter_config
 
@@ -82,13 +81,3 @@ class FingerCounter:
         pinky_tip = Point(points[20][0], points[20][1])
 
         return [thumb_tip, index_tip, middle_tip, ring_tip, pinky_tip]
-    
-    def test(self):
-        cap = cv2.VideoCapture(0)  # Open default webcam
-
-        while(1):
-            ret, frame = cap.read()
-            count = self.count_fingers(frame, False)
-            print(count)
-
-        cap.release()
