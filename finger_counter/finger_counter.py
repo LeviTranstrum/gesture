@@ -37,7 +37,7 @@ class FingerCounter:
         self.detector = liteRT_detector.LiteRT_Detector(self.config.min_confidence)
 
     def count_fingers(self, image):
-        result = self.detector.detect(image)
+        result, score = self.detector.detect(image)
         if result is None:
             return None
 
@@ -45,7 +45,7 @@ class FingerCounter:
         for r in result:
             count = count + self.count_fingers_from_keypoints(r)
 
-        return count
+        return count, score
     
     def count_fingers_from_keypoints(self, points):
         palm_circle = FingerCounter.calculate_palm_circle(points)

@@ -19,7 +19,7 @@ while(1):
     if image is None:
         continue
     
-    count = counter.count_fingers(image)
+    count, confidence = counter.count_fingers(image)
     if prev_count is not None and prev_count != count and prev_count > 0:
         controller.set_output(prev_count, 0)
 

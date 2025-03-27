@@ -3,7 +3,6 @@ import numpy as np
 
 class LiteRT_Detector:
     def __init__(self, min_confidence = 0.5):
-        self.min_confidence = min_confidence
         self.interpreter = tflite.Interpreter(model_path='detector/MediaPipeHandLandmarkDetector.tflite')
         self.interpreter.allocate_tensors()
 
@@ -31,12 +30,10 @@ class LiteRT_Detector:
         self.interpreter.invoke()
 
         score = self.interpreter.get_tensor(self.output_details[0]['index'])
-        if score < self.min_confidence:
-            return None
 
         landmarks = self.interpreter.get_tensor(self.output_details[2]['index'])  # Index 309 for landmarks
         
         results = np.squeeze(landmarks)  # Removes batch dimension
         results = [np.delete(results,2, axis=1).tolist()] # remove z dimension and convert to list
 
-        return results
+        return results, score
