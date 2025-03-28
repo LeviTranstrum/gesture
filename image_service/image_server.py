@@ -1,9 +1,7 @@
 import cv2
-import numpy as np
 import json
 from http.server import SimpleHTTPRequestHandler, HTTPServer
 import yaml
-import threading
 from . import image_service_config  # Adjust the import as needed
 
 # Global variables to hold images
@@ -126,9 +124,12 @@ class ImageServer(SimpleHTTPRequestHandler):
                 return
             
             count = data["count"]
+
+            text = f"{count}\n {confidence*100}"
+            cv2.putText(annotated_img, text, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
             
             # Display the annotated image in a reusable OpenCV window
-            cv2.imshow(f"{count} fingers, {confidence*100}% confidence", latest_annotated_image)
+            cv2.imshow("Detection", latest_annotated_image)
             cv2.waitKey(1)  # Short wait to update the window
 
             self.send_response(200)
@@ -150,6 +151,6 @@ if __name__ == "__main__":
         config = image_service_config.ImageServiceConfig(yaml.safe_load(file))
     
     # Create a reusable OpenCV window for annotated images
-    cv2.namedWindow("Annotated Image", cv2.WINDOW_AUTOSIZE)
+    cv2.namedWindow("Detection", cv2.WINDOW_AUTOSIZE)
     
     run_server(config.port)

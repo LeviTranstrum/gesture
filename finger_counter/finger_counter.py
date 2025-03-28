@@ -99,7 +99,7 @@ class FingerCounter:
                     "radius": palm_circle.radius
                 }
             },
-            "confidence": score,
+            "confidence": float(score),
             "count": count
         }
 
