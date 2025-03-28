@@ -1,3 +1,4 @@
+from PIL import Image, ImageDraw
 from detector import liteRT_detector
 from . import finger_counter_config
 
@@ -34,18 +35,21 @@ class Circle:
 class FingerCounter:
     def __init__(self, config):
         self.config = finger_counter_config.FingerCounterConfig(config)
-        self.detector = liteRT_detector.LiteRT_Detector(self.config.min_confidence)
+        self.detector = liteRT_detector.LiteRT_Detector()
+        self.visualize_data = self.config.visualize_data
 
     def count_fingers(self, image):
         result, score = self.detector.detect(image)
         if result is None:
             return None
+        
+        count = self.count_fingers_from_keypoints(result)
 
-        count = 0
-        for r in result:
-            count = count + self.count_fingers_from_keypoints(r)
+        visualization_data = None
+        if self.visualize_data:
+            visualization = FingerCounter.get_visualization_data(result)
 
-        return count, score
+        return count, score, visualization_data
     
     def count_fingers_from_keypoints(self, points):
         palm_circle = FingerCounter.calculate_palm_circle(points)
@@ -61,6 +65,7 @@ class FingerCounter:
             count = count + 1
         if pinky.distance_to(palm_circle.center) >= palm_circle.radius * self.config.pinky_length:
             count = count + 1
+
         return count
     
     def calculate_palm_circle(points):
@@ -81,3 +86,19 @@ class FingerCounter:
         pinky_tip = Point(points[20][0], points[20][1])
 
         return [thumb_tip, index_tip, middle_tip, ring_tip, pinky_tip]
+
+    def get_visualization_data(points):
+        palm_circle = FingerCounter.calculate_palm_circle(points)
+        fingertips = FingerCounter.get_fingertip_points_from_keypoints(points)
+        
+        data = {
+            "keypoints": {
+                "points": [{"x": pt.x, "y": pt.y} for pt in fingertips],
+                "palm_circle": {
+                    "center": {"x": palm_circle.center.x, "y": palm_circle.center.y},
+                    "radius": palm_circle.radius
+                }
+            }
+        }
+
+        return data

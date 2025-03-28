@@ -9,4 +9,4 @@ class FingerCounterConfig:
         self.middle_length = config.get('middle_length')
         self.ring_length = config.get('ring_length')
         self.pinky_length = config.get('pinky_length')
-        self.min_confidence = config.get('min_confidence')
+        self.visualize_data = config.get('visualize_data')

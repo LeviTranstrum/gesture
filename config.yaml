@@ -1,16 +1,19 @@
 image_service_config:
   server: "192.168.3.99"
   port: 8080
-  endpoint: "capture"
+  image_endpoint: "capture"
+  visualization_endpoint: "show"
 
 ert3_config:
   base_module: 0
   output_slot: 3
 
 finger_counter_config:
-  thumb_length: 1.35
-  index_length: 100
-  middle_length: 100
-  ring_length: 100
-  pinky_length: 100
-  min_confidence: 0.7
+  thumb_length: 1.5
+  index_length: 2.2
+  middle_length: 2.2
+  ring_length: 2.2
+  pinky_length: 1.9
+  visualize_data: False
+
+min_confidence: 0.6

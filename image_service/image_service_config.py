@@ -6,4 +6,5 @@ class ImageServiceConfig:
         
         self.server = config.get("server")
         self.port = config.get("port")
-        self.endpoint = config.get("endpoint")
+        self.image_endpoint = config.get("image_endpoint")
+        self.visualization_endpoint = config.get("visualization_endpoint")
