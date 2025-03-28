@@ -47,7 +47,7 @@ class FingerCounter:
 
         visualization_data = None
         if self.visualize_data:
-            visualization = FingerCounter.get_visualization_data(result)
+            visualization_data = FingerCounter.get_visualization_data(result, score, count)
 
         return count, score, visualization_data
     
@@ -87,7 +87,7 @@ class FingerCounter:
 
         return [thumb_tip, index_tip, middle_tip, ring_tip, pinky_tip]
 
-    def get_visualization_data(points):
+    def get_visualization_data(points, score, count):
         palm_circle = FingerCounter.calculate_palm_circle(points)
         fingertips = FingerCounter.get_fingertip_points_from_keypoints(points)
         
@@ -98,7 +98,9 @@ class FingerCounter:
                     "center": {"x": palm_circle.center.x, "y": palm_circle.center.y},
                     "radius": palm_circle.radius
                 }
-            }
+            },
+            "confidence": score,
+            "count": count
         }
 
         return data

@@ -14,6 +14,6 @@ finger_counter_config:
   middle_length: 2.2
   ring_length: 2.2
   pinky_length: 1.9
-  visualize_data: False
+  visualize_data: True
 
 min_confidence: 0.6

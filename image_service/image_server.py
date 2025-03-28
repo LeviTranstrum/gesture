@@ -68,7 +68,6 @@ class ImageServer(SimpleHTTPRequestHandler):
                 self.wfile.write(b"Invalid JSON")
                 return
 
-            # Expecting only keypoints data in the POST (no image)
             if "keypoints" not in data:
                 self.send_response(400)
                 self.end_headers()
@@ -112,8 +111,24 @@ class ImageServer(SimpleHTTPRequestHandler):
             global latest_annotated_image
             latest_annotated_image = annotated_img
 
+            if "confidence" not in data:
+                self.send_response(400)
+                self.end_headers()
+                self.wfile.write(b"Missing 'confidence' field")
+                return
+            
+            confidence = data["confidence"]
+
+            if "count" not in data:
+                self.send_response(400)
+                self.end_headers()
+                self.wfile.write(b"Missing 'count' field")
+                return
+            
+            count = data["count"]
+            
             # Display the annotated image in a reusable OpenCV window
-            cv2.imshow("Annotated Image", latest_annotated_image)
+            cv2.imshow(f"{count} fingers, {confidence*100}% confidence", latest_annotated_image)
             cv2.waitKey(1)  # Short wait to update the window
 
             self.send_response(200)
