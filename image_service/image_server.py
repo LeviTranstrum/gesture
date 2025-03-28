@@ -125,8 +125,8 @@ class ImageServer(SimpleHTTPRequestHandler):
             
             count = data["count"]
 
-            text = f"{count}\n {confidence*100}"
-            cv2.putText(annotated_img, text, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
+            cv2.putText(annotated_img, f"{count}", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
+            cv2.putText(annotated_img, f"{int(confidence*100)}%", (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
             
             # Display the annotated image in a reusable OpenCV window
             cv2.imshow("Detection", latest_annotated_image)
