@@ -2,7 +2,7 @@ import cv2
 import json
 from http.server import SimpleHTTPRequestHandler, HTTPServer
 import yaml
-from . import image_service_config  # Adjust the import as needed
+from . import image_service_config
 
 # Global variables to hold images
 latest_captured_image = None
