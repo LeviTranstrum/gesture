@@ -48,6 +48,8 @@ pip install tflite_runtime-2.6.0-cp39-cp39-linux_armv7l.whl
 ```
 6. Install other dependencies:
 ```bash
+# System requirements to build Pillow
+sudo apt install -y libjpeg-dev zlib1g-dev libfreetype6-dev liblcms2-dev libopenjpeg-dev libtiff-dev libwebp-dev tcl-dev tk-dev python3-dev python3-pip
 pip install -r gesture/requirements.txt
 ```
 7. Set your PC's IP address in the `config.yaml` file:
