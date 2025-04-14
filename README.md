@@ -95,7 +95,7 @@ Now that all dependencies have been installed, we can run the python script.
     python /home/ert3/gesture/main.py
     ```
 
-#### Setting up the image server
+### Setting up the image server
 Now that the e-RT3 is up and running, it will need a server to feed it images. To set this up on your PC:
 1. Download and install [Python](https://www.python.org/downloads/windows/) and [git](https://git-scm.com/downloads/win).
 2. Clone this repository:
@@ -112,7 +112,7 @@ Now that the e-RT3 is up and running, it will need a server to feed it images. T
     python3 -m image_service.image_server
     ```
 
-#### Detecting Gestures
+### Detecting Gestures
 Hold your hand up in front of the webcam, about 18-24 inches away. Activate digital input 1 on the e-RT3 input module to capture an image. The image will be processed by the LiteRT model, and the digital output corresponding to the number of fingers detected will be activated on the digital output module. 
 
 For example, if you hold up 4 fingers, digital output 4 will be activated, and the number 4 will be lit up on the digital output card display. If there is an error receiving the image, or no hand is confidently detected in the image, the alarm (`ALM`) light will turn on.
