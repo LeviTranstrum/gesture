@@ -7,9 +7,6 @@ sudo apt update
 sudo apt install ntpdate
 sudo ntpdate pool.ntp.org
 
-# Clone the code
-git clone https://github.com/LeviTranstrum/gesture
-
 # Install dependencies
 # Pillow dependencies
 sudo apt update
