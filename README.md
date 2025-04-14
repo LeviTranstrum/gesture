@@ -27,32 +27,38 @@ Hardware required:
 
 #### Download the Code and Install Dependencies
 1. Connect the second ethernet port on the e-RT3 to a network with internet access.
-2. Clone this repository:
+2. Update the date and time on the e-RT3:
+```
+sudo apt update
+sudo apt install ntpdate
+sudo ntpdate pool.ntp.org
+```
+3. Clone this repository:
 ```bash
 git clone https://github.com/LeviTranstrum/gesture
 ```
-3. [Build an RT Lite wheel from source](https://dev.to/yokogawa-yts_india/running-a-basic-tensorflow-lite-model-on-e-rt3-plus-dgh), or download [my pre-built wheel](https://github.com/LeviTranstrum/yokogawa-ert3):
+4. [Build an RT Lite wheel from source](https://dev.to/yokogawa-yts_india/running-a-basic-tensorflow-lite-model-on-e-rt3-plus-dgh), or download [my pre-built wheel](https://github.com/LeviTranstrum/yokogawa-ert3):
 ```bash
 curl -k -OL https://github.com/LeviTranstrum/yokogawa-ert3/raw/master/tflite_runtime-2.6.0-cp39-cp39-linux_armv7l.whl
 
 ```
-4. Install the RT Lite wheel:
+5. Install the RT Lite wheel:
 ```bash
 pip install tflite_runtime-2.6.0-cp39-cp39-linux_armv7l.whl
 ```
-5. Install other dependencies:
+6. Install other dependencies:
 ```bash
 pip install -r gesture/requirements.txt
 ```
-6. Set your PC's IP address in the `config.yaml` file:
+7. Set your PC's IP address in the `config.yaml` file:
 ```
 sudo vim /home/ert3/gesture/config.yaml
 ```
-7. Run the python script:
+8. Run the python script:
 ```bash
 python /home/ert3/gesture/main.py
 ```
-8. (Optional) Schedule the script to start automatically on bootup:
+9. (Optional) Schedule the script to start automatically on bootup:
 ```bash
 sudo cat <<EOF > /etc/systemd/system/gesture.service
 [Unit]
