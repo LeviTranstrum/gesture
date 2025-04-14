@@ -1,6 +1,11 @@
-# Note: Need to have current date and time set with
+# Note: Need to have roughly current date and time set with
 # `sudo date -s YYYY-MM-DD HH:MM:SS`
 # or else you will run into issue with certificates
+
+# set up ntpdate to keep the date current
+sudo apt update
+sudo apt install ntpdate
+sudo ntpdate pool.ntp.org
 
 # Clone the code
 git clone https://github.com/LeviTranstrum/gesture
