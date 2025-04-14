@@ -18,3 +18,22 @@ pip install tflite_runtime-2.6.0-cp39-cp39-linux_armv7l.whl
 
 # Other pip packages
 pip install -r gesture/requirements.txt
+
+# Start the python script on bootup
+sudo cat <<EOF > /etc/systemd/system/gesture.service
+[Unit]
+Description=Yokogawa Machine Vision Demo
+After=network.target
+
+[Service]
+Type=simple
+User=ert3
+ExecStart=/usr/bin/python3 /home/ert3/gesture/main.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+sudo systemctl daemon-reload
+sudo systemctl enable gesture.service
