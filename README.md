@@ -2,13 +2,13 @@
 This is a machine vision demo showcasing the functionality of the Yokogawa e-RT3 as an industrial AI platform.
 
 ## Overview
-In this demo, the e-RT3 acquires an image via an HTTP GET request from a camera on the network. The image is fed to a LiteRT (formerly TensorFlow Lite) model which detects the presence and location of hand keypoints. The number of fingertips which are far from the palm are counted. The digital output corresponding to the number of fingers held up (1-5) is then activated. 
+In this demo, the e-RT3 acquires an image from a camera on the network via an HTTP GET request. The image is fed to a LiteRT (formerly TensorFlow Lite) model which detects the presence and location of hand keypoints. The number of fingertips which are far from the palm are counted. The digital output corresponding to the number of fingers held up (1-5) is then activated. 
 
 ## Usage
 Hardware required:
-- Yokogawa e-RT3 with PR70 CPU, digital input module, and digital output module
+- Yokogawa e-RT3 with RP70 CPU, digital input module, and digital output module
 - PC with webcam, or other network camera
-- Yokogawa input module switch unit, or other way to send 24v signal to e-RT3 input module
+- Yokogawa input module switch unit, or other 24VDC signal to e-RT3 input module
 
 ### Setting up the e-RT3
 #### Load the OS
