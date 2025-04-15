@@ -3,8 +3,6 @@
 # or else you will run into issue with certificates
 
 # set up ntpdate to keep the date current
-sudo apt update
-sudo apt install ntpdate
 sudo ntpdate pool.ntp.org
 
 # Install dependencies
@@ -20,7 +18,7 @@ pip install tflite_runtime-2.6.0-cp39-cp39-linux_armv7l.whl
 pip install -r gesture/requirements.txt
 
 # Start the python script on bootup
-sudo cat <<EOF > /etc/systemd/system/gesture.service
+sudo tee /etc/systemd/system/gesture.service <<EOF
 [Unit]
 Description=Yokogawa Machine Vision Demo
 After=network.target
